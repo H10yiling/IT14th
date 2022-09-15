@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xki-Si-B7m">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Credential Provider View Controller-->
+        <scene sceneID="Uma-9u-xWV">
+            <objects>
+                <viewController id="Xki-Si-B7m" customClass="CredentialProviderViewController" customModule="AutofillDemoCredentialProvider" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BuU-Ak-iZz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3wq-kG-lGu">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <items>
+                                    <navigationItem id="cbj-pk-SYj">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bEZ-MG-jDy">
+                                            <connections>
+                                                <action selector="cancel:" destination="Xki-Si-B7m" id="6ap-3Q-iEX"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELa-ar-93T">
+                                <rect key="frame" x="10" y="49" width="355" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LbY-di-DEi">
+                                <rect key="frame" x="0.0" y="90" width="375" height="577"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainTableViewCell" id="N34-IK-nBS" customClass="MainTableViewCell" customModule="AutofillDemoCredentialProvider" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N34-IK-nBS" id="ors-4f-yZf">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQu-gN-UlI">
+                                                    <rect key="frame" x="26" y="16" width="63.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4B-k1-uR1">
+                                                    <rect key="frame" x="26" y="43" width="73.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vQu-gN-UlI" firstAttribute="leading" secondItem="ors-4f-yZf" secondAttribute="leadingMargin" constant="10" id="9ED-wg-gPR"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="P4B-k1-uR1" secondAttribute="bottom" constant="5" id="Tau-h5-038"/>
+                                                <constraint firstItem="vQu-gN-UlI" firstAttribute="top" secondItem="ors-4f-yZf" secondAttribute="topMargin" constant="5" id="qMr-dm-oEj"/>
+                                                <constraint firstItem="P4B-k1-uR1" firstAttribute="leading" secondItem="ors-4f-yZf" secondAttribute="leadingMargin" constant="10" id="vOW-NB-S3p"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="accountLabel" destination="vQu-gN-UlI" id="n9j-7G-5ML"/>
+                                            <outlet property="passwordLabel" destination="P4B-k1-uR1" id="lVu-7h-IEo"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Xki-Si-B7m" id="876-a8-GGT"/>
+                                    <outlet property="delegate" destination="Xki-Si-B7m" id="Wxb-Cc-Lyw"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ky8-vK-JVj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ky8-vK-JVj" firstAttribute="top" secondItem="3wq-kG-lGu" secondAttribute="top" id="BIN-jb-uNd"/>
+                            <constraint firstItem="ELa-ar-93T" firstAttribute="top" secondItem="3wq-kG-lGu" secondAttribute="bottom" constant="5" id="DiG-gq-Iff"/>
+                            <constraint firstItem="LbY-di-DEi" firstAttribute="leading" secondItem="Ky8-vK-JVj" secondAttribute="leading" id="T86-mL-2fi"/>
+                            <constraint firstItem="3wq-kG-lGu" firstAttribute="width" secondItem="BuU-Ak-iZz" secondAttribute="width" id="UkD-v4-BcH"/>
+                            <constraint firstItem="Ky8-vK-JVj" firstAttribute="trailing" secondItem="LbY-di-DEi" secondAttribute="trailing" id="YQV-qv-1Jd"/>
+                            <constraint firstItem="ELa-ar-93T" firstAttribute="leading" secondItem="Ky8-vK-JVj" secondAttribute="leading" constant="10" id="aMX-RX-Xbt"/>
+                            <constraint firstItem="Ky8-vK-JVj" firstAttribute="bottom" secondItem="LbY-di-DEi" secondAttribute="bottom" id="qxA-qd-fbg"/>
+                            <constraint firstItem="Ky8-vK-JVj" firstAttribute="trailing" secondItem="ELa-ar-93T" secondAttribute="trailing" constant="10" id="rda-az-JPN"/>
+                            <constraint firstItem="3wq-kG-lGu" firstAttribute="centerX" secondItem="BuU-Ak-iZz" secondAttribute="centerX" id="rtV-5c-0bl"/>
+                            <constraint firstItem="LbY-di-DEi" firstAttribute="top" secondItem="ELa-ar-93T" secondAttribute="bottom" constant="5" id="tbd-k3-4EH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="listTableView" destination="LbY-di-DEi" id="NFz-MO-lYK"/>
+                        <outlet property="urlLabel" destination="ELa-ar-93T" id="Yid-r3-Ng8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RwB-HB-TSk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4" y="78.710644677661179"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
