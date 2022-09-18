@@ -20,6 +20,8 @@
 		0C3C868E28D329AF007A4C74 /* MainASCredentialProviderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3C868C28D329AF007A4C74 /* MainASCredentialProviderViewController.xib */; };
 		0C3C869128D3305D007A4C74 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C868F28D3305D007A4C74 /* MainTableViewCell.swift */; };
 		0C3C869228D3305D007A4C74 /* MainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3C869028D3305D007A4C74 /* MainTableViewCell.xib */; };
+		0C3C869928D557AE007A4C74 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C869728D557AE007A4C74 /* FirstViewController.swift */; };
+		0C3C869A28D557AE007A4C74 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3C869828D557AE007A4C74 /* FirstViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		0C3C868C28D329AF007A4C74 /* MainASCredentialProviderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainASCredentialProviderViewController.xib; sourceTree = "<group>"; };
 		0C3C868F28D3305D007A4C74 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		0C3C869028D3305D007A4C74 /* MainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTableViewCell.xib; sourceTree = "<group>"; };
+		0C3C869728D557AE007A4C74 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		0C3C869828D557AE007A4C74 /* FirstViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 		0C3C867228CC90BD007A4C74 /* AutofillDemoCredentialProvider */ = {
 			isa = PBXGroup;
 			children = (
+				0C3C869B28D557BC007A4C74 /* FirstViewController */,
 				0C3C868A28D32987007A4C74 /* MainASCredentialProviderViewController */,
 				0C3C868328D2EDD0007A4C74 /* MainTableViewCell */,
 				0C3C867828CC90BD007A4C74 /* Info.plist */,
@@ -163,6 +168,15 @@
 				0C3C868C28D329AF007A4C74 /* MainASCredentialProviderViewController.xib */,
 			);
 			path = MainASCredentialProviderViewController;
+			sourceTree = "<group>";
+		};
+		0C3C869B28D557BC007A4C74 /* FirstViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0C3C869728D557AE007A4C74 /* FirstViewController.swift */,
+				0C3C869828D557AE007A4C74 /* FirstViewController.xib */,
+			);
+			path = FirstViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C3C869228D3305D007A4C74 /* MainTableViewCell.xib in Resources */,
+				0C3C869A28D557AE007A4C74 /* FirstViewController.xib in Resources */,
 				0C3C868E28D329AF007A4C74 /* MainASCredentialProviderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3C869928D557AE007A4C74 /* FirstViewController.swift in Sources */,
 				0C3C869128D3305D007A4C74 /* MainTableViewCell.swift in Sources */,
 				0C3C868D28D329AF007A4C74 /* MainASCredentialProviderViewController.swift in Sources */,
 			);

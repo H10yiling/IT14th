@@ -19,6 +19,8 @@
 		0C3C867C28CC90BD007A4C74 /* AutofillDemoCredentialProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0C3C866E28CC90BD007A4C74 /* AutofillDemoCredentialProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0C3C868228CC9114007A4C74 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3C867028CC90BD007A4C74 /* AuthenticationServices.framework */; };
 		0C3C868928D2F3A7007A4C74 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C868828D2F3A7007A4C74 /* MainTableViewCell.swift */; };
+		0C3C869F28D55DD9007A4C74 /* XibViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C869D28D55DD9007A4C74 /* XibViewController.swift */; };
+		0C3C86A028D55DD9007A4C74 /* XibViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3C869E28D55DD9007A4C74 /* XibViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		0C3C867928CC90BD007A4C74 /* AutofillDemoCredentialProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutofillDemoCredentialProvider.entitlements; sourceTree = "<group>"; };
 		0C3C868128CC9114007A4C74 /* AutofillDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutofillDemo.entitlements; sourceTree = "<group>"; };
 		0C3C868828D2F3A7007A4C74 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		0C3C869D28D55DD9007A4C74 /* XibViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibViewController.swift; sourceTree = "<group>"; };
+		0C3C869E28D55DD9007A4C74 /* XibViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +141,7 @@
 		0C3C867228CC90BD007A4C74 /* AutofillDemoCredentialProvider */ = {
 			isa = PBXGroup;
 			children = (
+				0C3C869C28D55DA8007A4C74 /* XibViewController */,
 				0C3C868328D2EDD0007A4C74 /* MainTableViewCell */,
 				0C3C867328CC90BD007A4C74 /* CredentialProviderViewController.swift */,
 				0C3C867528CC90BD007A4C74 /* MainInterface.storyboard */,
@@ -152,6 +157,15 @@
 				0C3C868828D2F3A7007A4C74 /* MainTableViewCell.swift */,
 			);
 			path = MainTableViewCell;
+			sourceTree = "<group>";
+		};
+		0C3C869C28D55DA8007A4C74 /* XibViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0C3C869D28D55DD9007A4C74 /* XibViewController.swift */,
+				0C3C869E28D55DD9007A4C74 /* XibViewController.xib */,
+			);
+			path = XibViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3C86A028D55DD9007A4C74 /* XibViewController.xib in Resources */,
 				0C3C867728CC90BD007A4C74 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +283,7 @@
 			files = (
 				0C3C868928D2F3A7007A4C74 /* MainTableViewCell.swift in Sources */,
 				0C3C867428CC90BD007A4C74 /* CredentialProviderViewController.swift in Sources */,
+				0C3C869F28D55DD9007A4C74 /* XibViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

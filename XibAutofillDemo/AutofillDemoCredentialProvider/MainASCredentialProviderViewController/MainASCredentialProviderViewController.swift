@@ -44,6 +44,16 @@ class MainASCredentialProviderViewController: ASCredentialProviderViewController
     override func prepareCredentialList(for serviceIdentifiers: [ASCredentialServiceIdentifier]) {
     }
 
+    
+    override func prepareInterfaceForExtensionConfiguration() {
+        
+        let vc = UIViewController(nibName: "FirstViewController", bundle: nil)
+        
+        vc.modalPresentationStyle = .fullScreen // 將 present 的方式改為全螢幕
+        
+        present(vc, animated: true)
+    }
+    
     /*
      Implement this method if your extension supports showing credentials in the QuickType bar.
      When the user selects a credential from your app, this method will be called with the

@@ -6,24 +6,19 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class MainViewController: UIViewController {
-
+    
+    @IBOutlet weak var autofillStatusLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        ASCredentialIdentityStore.shared.getState {state in
+            DispatchQueue.main.async {
+                self.autofillStatusLabel.text = "是否已啟用自己的 AutofillDemo ?\n\n\(state.isEnabled)"
+            }
+        }
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
