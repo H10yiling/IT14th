@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="LocalizationDemo" customModuleProvider="target">
             <connections>
-                <outlet property="hiLabel" destination="tSU-Sh-2gM" id="W4n-dY-UXl"/>
+                <outlet property="iconImageView" destination="lW8-9C-Ago" id="0KU-ou-xSM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,21 +19,19 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="嗨" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSU-Sh-2gM">
-                    <rect key="frame" x="106.5" y="328.5" width="201" height="239"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lW8-9C-Ago">
+                    <rect key="frame" x="57" y="298" width="300" height="300"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="9Oh-eB-4Zl"/>
+                        <constraint firstAttribute="width" constant="300" id="5br-92-g0z"/>
+                        <constraint firstAttribute="width" secondItem="lW8-9C-Ago" secondAttribute="height" multiplier="1:1" id="tlh-Xq-yHV"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="200"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="tSU-Sh-2gM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Z6I-TP-A2H"/>
-                <constraint firstItem="tSU-Sh-2gM" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="cqh-bJ-6ry"/>
+                <constraint firstItem="lW8-9C-Ago" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="OAE-bo-33m"/>
+                <constraint firstItem="lW8-9C-Ago" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ygy-wd-Lms"/>
             </constraints>
             <point key="canvasLocation" x="139" y="102"/>
         </view>
