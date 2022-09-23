@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="LocalizationDemo" customModuleProvider="target">
+            <connections>
+                <outlet property="baseLabel" destination="E61-14-EK0" id="qmy-q8-RWc"/>
+                <outlet property="iconChineseButton" destination="i47-cH-6Al" id="84f-kP-IVl"/>
+                <outlet property="iconEnglishButton" destination="5Pf-4n-eRK" id="Qin-2o-fvE"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E61-14-EK0">
+                    <rect key="frame" x="0.0" y="44" width="414" height="84"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="70"/>
+                    <color key="textColor" red="0.23529411759999999" green="0.25490196079999999" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pf-4n-eRK" userLabel="EButton">
+                    <rect key="frame" x="171.5" y="148" width="71" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="English"/>
+                    <connections>
+                        <action selector="pushToLanguagePage:" destination="-1" eventType="touchUpInside" id="Yun-Un-9xh"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i47-cH-6Al" userLabel="CButton">
+                    <rect key="frame" x="169" y="199" width="76.5" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Chinese"/>
+                    <connections>
+                        <action selector="pushToLanguagePage:" destination="-1" eventType="touchUpInside" id="S3d-EQ-6M8"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="E61-14-EK0" secondAttribute="trailing" id="4Io-st-LVL"/>
+                <constraint firstItem="i47-cH-6Al" firstAttribute="top" secondItem="5Pf-4n-eRK" secondAttribute="bottom" constant="20" id="EfO-BH-Pj5"/>
+                <constraint firstItem="5Pf-4n-eRK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Uae-el-5Rf"/>
+                <constraint firstItem="E61-14-EK0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="W89-3O-x8Z"/>
+                <constraint firstItem="E61-14-EK0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Zji-zF-Fsp"/>
+                <constraint firstItem="i47-cH-6Al" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eTO-J0-sBu"/>
+                <constraint firstItem="5Pf-4n-eRK" firstAttribute="top" secondItem="E61-14-EK0" secondAttribute="bottom" constant="20" id="xk2-zz-i1U"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="102"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
