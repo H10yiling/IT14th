@@ -14,7 +14,7 @@ class ChineseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        chineseLabel.text = Localize.shared.localized(withKey: "language", withLocalizationFileNmae: "zh-Hant")
-        iconChineseImageView.image = Localize.shared.localizedImage(withImageName: "language", withLocalizationFileNmae: "zh-Hant")
+        chineseLabel.text = Localize.shared.localizedText(withText: "language", withLocalizationFileNmae: "zh-Hant")
+        iconChineseImageView.image = Localize.shared.localizedImage(withImageName: "Chinese", withLocalizationFileNmae: "zh-Hant")
     }
 }

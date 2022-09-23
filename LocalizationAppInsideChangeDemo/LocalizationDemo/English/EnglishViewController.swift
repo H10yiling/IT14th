@@ -14,7 +14,7 @@ class EnglishViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        englishLabel.text = Localize.shared.localized(withKey: "language", withLocalizationFileNmae: "en")
+        englishLabel.text = Localize.shared.localizedText(withText: "language", withLocalizationFileNmae: "en")
         iconEnglishImageView.image = Localize.shared.localizedImage(withImageName: "English", withLocalizationFileNmae: "en")
     }
 }
