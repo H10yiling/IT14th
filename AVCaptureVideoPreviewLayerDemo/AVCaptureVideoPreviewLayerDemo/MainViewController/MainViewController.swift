@@ -15,15 +15,12 @@ class MainViewController: UIViewController {
     var captureSession:AVCaptureSession?                        // 用於捕捉視訊及音訊，協調視訊及音訊的輸入及輸出
     var captureVideoPreviewLayer:AVCaptureVideoPreviewLayer!    // 呈現Session捕捉的資料
     var qrcodeString:String!                                    // QRcode 讀取到的字串
-    
-    var tempPath = UIBezierPath()
-    
-    var blackBackgroundView = UIView()                          // 灰色遮罩
+    var scanQRcodePath = UIBezierPath()                         // 可掃描範圍的CGRect
+    var blackBackgroundView = UIView()                          // 遮罩
     let superViewBounds = UIScreen.main.bounds                  // 裝置的邊界大小
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //blackView()
         scanQRCode()
     }
     
@@ -47,23 +44,26 @@ class MainViewController: UIViewController {
     
     // iOS 11 後新API，根視圖的邊距變更時會觸發該方法的回調
     override func viewLayoutMarginsDidChange(){
-        blackView()
+        scanQRCodeRectOfInterest()
+        scanQRCodeBlackView()
     }
     
-    private func blackView(){
+    /// 設定可掃描範圍的CGRect
+    func scanQRCodeRectOfInterest(){
         let width = superViewBounds.width / 2
         let newX = superViewBounds.width / 2 - (width / 2)
         let newY = superViewBounds.height / 2 - (width / 1.5)
-        tempPath = UIBezierPath(roundedRect: CGRect(x: newX, y: newY, width: width, height: width),
+        let tempPath = UIBezierPath(roundedRect: CGRect(x: newX, y: newY, width: width, height: width),
                                     cornerRadius: width / 10)
-        //print("-----superViewBounds, width, newX, newY, tempPath", superViewBounds, width, newX, newY, tempPath)
-        //-----superViewBounds, width, newX, newY, tempPath (0.0, 0.0, 375.0, 812.0) 187.5 93.75 281.0 <UIBezierPath: 0x281e2c900; <MoveTo {122.41246875, 281}>
-        
+        scanQRcodePath = tempPath
+    }
+    
+    /// 設定遮罩
+    func scanQRCodeBlackView(){
         blackBackgroundView = UIView(frame: UIScreen.main.bounds)
         blackBackgroundView.backgroundColor = UIColor.black
         blackBackgroundView.alpha = 0.6
-        blackBackgroundView.layer.mask = addTransparencyView(tempPath: tempPath) // 只有遮罩層覆蓋的地方才會顯示出來
-        print("1234567890",tempPath.bounds) //(93.75, 281.0, 187.5, 187.5)
+        blackBackgroundView.layer.mask = addTransparencyView(tempPath: scanQRcodePath) // 只有遮罩層覆蓋的地方才會顯示出來
         blackBackgroundView.layer.name = "blackBackgroundView"
         scanQRCodeView.addSubview(blackBackgroundView)
     }
@@ -73,7 +73,7 @@ class MainViewController: UIViewController {
     /// - Parameters:
     ///   - leftBarButtonItem: 返回鍵
     ///   - rightBarButtonItem: 儲存鍵
-    private func customizedNavigationBarItems() {
+    func customizedNavigationBarItems() {
         // 返回鍵
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)                     // btn image
@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
         print("backkkkkkkk")
     }
     
-    // #1 摳圖
+    /// 添加透明度視圖（摳圖）
     func addTransparencyView(tempPath: UIBezierPath?) -> CAShapeLayer? {
         let path = UIBezierPath(rect: UIScreen.main.bounds)
         if let tempPath = tempPath {
@@ -105,6 +105,8 @@ class MainViewController: UIViewController {
         return shapeLayer
     }
 }
+
+// MARK: - AVCaptureMetadataOutputObjectsDelegate
 
 // 用來捕捉並輸出數據的方法
 extension MainViewController: AVCaptureMetadataOutputObjectsDelegate {
@@ -145,15 +147,16 @@ extension MainViewController: AVCaptureMetadataOutputObjectsDelegate {
         // 判斷是否可以將 metaDataOutput 輸出到 captureSession
         if (captureSession?.canAddOutput(metaDataOutput) ?? false) {
             captureSession?.addOutput(metaDataOutput)
+            // 設定可以處理哪些類型的條碼
+            metaDataOutput.metadataObjectTypes = [.qr, .ean8, .ean13, .pdf417]
+            scanQRCodeRectOfInterest()
+            // 限制可掃描範圍
+            metaDataOutput.rectOfInterest = CGRect(x: scanQRcodePath.bounds.minY/superViewBounds.height,
+                                                   y: scanQRcodePath.bounds.minX/superViewBounds.width,
+                                                   width: scanQRcodePath.bounds.height/superViewBounds.height,
+                                                   height: scanQRcodePath.bounds.width/superViewBounds.width)
+            // 設定代理 在主執行緒裡重新整理
             metaDataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main) //執行處理 QRCode
-            metaDataOutput.metadataObjectTypes = [.qr, .ean8, .ean13, .pdf417] // 設定可以處理哪些類型的條碼
-            //CGRect(x: 93.75, y: 281.0, width: 187.5, height: 187.5)
-//            let x = 93.75/480
-//            let y = 281.0/640
-//            let width = 187.5/480
-//            let height = 187.5/640
-//            metaDataOutput.rectOfInterest = CGRect(x: x, y: y, width: width, height: height)
-            
         } else {
             return
         }
@@ -162,7 +165,6 @@ extension MainViewController: AVCaptureMetadataOutputObjectsDelegate {
         captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
         captureVideoPreviewLayer.videoGravity = .resizeAspectFill
         captureVideoPreviewLayer.frame = scanQRCodeView.layer.frame
-        //tempPath.bounds
         scanQRCodeView.layer.addSublayer(captureVideoPreviewLayer)
         captureSession?.startRunning()
     }
@@ -172,11 +174,9 @@ extension MainViewController: AVCaptureMetadataOutputObjectsDelegate {
     // AVCaptureMetadataOutputObjectsDelegate 裡的委派方法 metadataOutout 會被呼叫
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first {
+            
             // AVMetadataMachineReadableCodeObject 是從 Output 擷取到 Barcode 的內容
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            
-            // 顯示掃描到的QRCode打個框框讓使用者知道
-            //let qrCodeObject = captureVideoPreviewLayer?.transformedMetadataObject(for: readableObject)
             
             for subView in scanQRCodeView.subviews{
                 if subView.layer.name == "blackBackgroundView" {
@@ -185,13 +185,13 @@ extension MainViewController: AVCaptureMetadataOutputObjectsDelegate {
                         subView.alpha = 0 // 不透明
                     }) { (bool) in
                         subView.removeFromSuperview()
+                        
                         // 將讀取到的內容轉成字串
                         guard let stringValue = readableObject.stringValue else { return }
                         self.qrcodeString = stringValue
-                        // 將讀取到的字顯示出來
-                        // print("- - - - - - qrCodeObject: ", self.qrcodeString)
                         
                         self.showAlertWith(title: "", message: "\(self.qrcodeString.description)", vc: self, confirmTitle: "Yes", cancelTitle: "No", confirm: {
+                            
                             // 開啟連結
                             if let url = URL(string: self.qrcodeString) {
                                 if self.qrcodeString.contains("http") || self.qrcodeString.contains("https") {
@@ -202,22 +202,61 @@ extension MainViewController: AVCaptureMetadataOutputObjectsDelegate {
                                     UIApplication.shared.open(newURL!, options: [:], completionHandler: nil)
                                 }
                             }
-                        }, cancel: {[self] in
-                            blackView()
+                        }, cancel: {
+                            self.scanQRCodeBlackView()
                         })
-                        //self.navigationController?.popViewController(animated: true)
                     }
-                }
-                else{
-                    self.scanQRCode()
                 }
             }
         }
     }
 }
 
-// MARK: - NavigationController
+// MARK: -
 extension MainViewController{
+    // MARK: - Alert
+    
+    /// 單一按鈕 Alert
+    /// - Parameters:
+    ///   - title: Alert 的標題
+    ///   - message: Alert 的訊息
+    ///   - vc: 要在哪個畫面跳出來
+    ///   - confirmTitle: 按鈕的文字
+    ///   - confirm: 按下按鈕後要做的事
+    public func showAlertWith(title: String?, message: String?, vc: UIViewController, confirmTitle: String, confirm: (() -> Void)?) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: confirmTitle, style: .default) { action in
+                confirm?()
+            }
+            alertController.addAction(confirmAction)
+            vc.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    /// 確認、取消按鈕的 Alert
+    /// - Parameters:
+    ///   - title: Alert 的標題
+    ///   - message: Alert 的訊息
+    ///   - vc: 要在哪個畫面跳出來
+    ///   - confirmTitle: 確認按鈕的文字
+    ///   - cancelTitle: 取消按鈕的文字
+    ///   - confirm: 按下確認按鈕後要做的事
+    ///   - cancel: 按下取消按鈕後要做的事
+    public func showAlertWith(title: String?, message: String?, vc: UIViewController, confirmTitle: String, cancelTitle: String, confirm: (() -> Void)?, cancel: (() -> Void)?) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: confirmTitle, style: .default) { action in
+                confirm?()
+            }
+            let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { action in
+                cancel?()
+            }
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+            vc.present(alertController, animated: true, completion: nil)
+        }
+    }
     
     // MARK: - NavigationController.push
     
@@ -265,85 +304,6 @@ extension MainViewController{
             return
         }
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
-    }
-    
-    /// NavigationController.popToViewController 回到指定 ViewController (不帶 Closure)
-    /// - Parameters:
-    ///   - currectVC: 目前所在的 ViewController
-    ///   - popVC_index: 在 NavigationController.viewControllers 中，指定 ViewController 的 index
-    ///   - animated: 是否要換頁動畫，預設為 true
-    public func popToViewController(currectVC viewController: UIViewController, popVC_index: Int, animated: Bool = true) {
-        guard let currectVC_index = navigationController?.viewControllers.firstIndex(of: self) else { return }
-        if let vc = navigationController?.viewControllers[currectVC_index - popVC_index] {
-            self.navigationController?.popToViewController(vc, animated: animated)
-        }
-    }
-    
-    /// NavigationController.popToViewController 回到指定 ViewController (帶 Closure)
-    /// - Parameters:
-    ///   - currectVC: 目前所在的 ViewController
-    ///   - popVC_index: 在 NavigationController.viewControllers 中，指定 ViewController 的 index
-    ///   - animated: 是否要換頁動畫
-    ///   - completion: 換頁過程中，要做的事
-    public func popToViewController(currectVC viewController: UIViewController, popVC_index: Int, animated: Bool, completion: @escaping () -> Void) {
-        guard let currectVC_index = navigationController?.viewControllers.firstIndex(of: self) else { return }
-        if let vc = navigationController?.viewControllers[currectVC_index - popVC_index] {
-            self.navigationController?.popToViewController(vc, animated: animated)
-        }
-        guard animated, let coordinator = transitionCoordinator else {
-            DispatchQueue.main.async { completion() }
-            return
-        }
-        coordinator.animate(alongsideTransition: nil) { _ in completion() }
-    }
-    
-    /// NavigationController.popToRootViewController 回到 Root ViewController
-    /// - Parameters:
-    ///   - animated: 是否要換頁動畫，預設為 true
-    public func popToRootViewController(_ animated: Bool = true) {
-        self.navigationController?.popToRootViewController(animated: animated)
-    }
-    
-    /// 單一按鈕 Alert
-    /// - Parameters:
-    ///   - title: Alert 的標題
-    ///   - message: Alert 的訊息
-    ///   - vc: 要在哪個畫面跳出來
-    ///   - confirmTitle: 按鈕的文字
-    ///   - confirm: 按下按鈕後要做的事
-    public func showAlertWith(title: String?, message: String?, vc: UIViewController, confirmTitle: String, confirm: (() -> Void)?) {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: confirmTitle, style: .default) { action in
-                confirm?()
-            }
-            alertController.addAction(confirmAction)
-            vc.present(alertController, animated: true, completion: nil)
-        }
-    }
-    
-    /// 確認、取消按鈕的 Alert
-    /// - Parameters:
-    ///   - title: Alert 的標題
-    ///   - message: Alert 的訊息
-    ///   - vc: 要在哪個畫面跳出來
-    ///   - confirmTitle: 確認按鈕的文字
-    ///   - cancelTitle: 取消按鈕的文字
-    ///   - confirm: 按下確認按鈕後要做的事
-    ///   - cancel: 按下取消按鈕後要做的事
-    public func showAlertWith(title: String?, message: String?, vc: UIViewController, confirmTitle: String, cancelTitle: String, confirm: (() -> Void)?, cancel: (() -> Void)?) {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: confirmTitle, style: .default) { action in
-                confirm?()
-            }
-            let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { action in
-                cancel?()
-            }
-            alertController.addAction(confirmAction)
-            alertController.addAction(cancelAction)
-            vc.present(alertController, animated: true, completion: nil)
-        }
     }
 }
 
